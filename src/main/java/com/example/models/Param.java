@@ -6,14 +6,21 @@ import lombok.Data;
 @Entity
 @Data
 public class Param {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
-    private Double weight;
-    private Double maxScore;
+    private String name; // Название критерия
+
+    @ManyToOne
+    @JoinColumn(name = "param_group_id")
+    private ParamGroup paramGroup; // Группа критериев
 
     @Enumerated(EnumType.STRING)
-    private ParamGroup group;
+    private EParamType type; // Тип критерия
+
+    private Double weight; // Весовой коэффициент
+
+    private String comment; // Комментарий
 }

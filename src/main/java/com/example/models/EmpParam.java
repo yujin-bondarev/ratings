@@ -6,16 +6,14 @@ import lombok.Data;
 @Entity
 @Data
 public class EmpParam {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    @OneToOne
+    @JoinColumn(name = "param_id")
+    private Param param; // Ссылка на параметр
 
-    @Enumerated(EnumType.STRING)
-    private ParamGroup group;
-
-    private Double weight;
-
-    private Double value;
+    private Double value; // Значение, введённое пользователем
 }
