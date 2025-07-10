@@ -2,60 +2,65 @@ package com.example.services;
 
 import com.example.models.EmpParam;
 import com.example.models.Param;
+import com.example.models.enums.EParamType;
 import com.example.repositories.EmpParamRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import by.vstu.dean.core.services.BaseService;
+import by.vstu.dean.core.websocket.WSControllerManager;
+import org.javers.core.Javers;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import jakarta.persistence.EntityManager;
 import java.util.List;
 
+/**
+ * Сервис для работы с параметрами оценки преподавателей.
+ */
 @Service
-public class EmpParamService {
+@Transactional
+public class EmpParamService extends BaseService<EmpParam, EmpParamRepository> {
 
-    @Autowired
-    private EmpParamRepository empParamRepository;
-
-    // --- Базовые методы ---
-    public List<EmpParam> getAllEmpParams() {
-        return empParamRepository.findAll();
+    public EmpParamService(EmpParamRepository repo, Javers javers, WSControllerManager tm) {
+        super(repo, javers, tm);
     }
 
-    public EmpParam saveEmpParam(EmpParam empParam) {
-        return empParamRepository.save(empParam);
-    }
-
-    public void deleteEmpParam(Long id) {
-        empParamRepository.deleteById(id);
-    }
-
-    // --- Расчет рейтинга по всем параметрам ---
+    /**
+     * Расчёт рейтинга по всем переданным параметрам.
+     */
     public Double calculateRating(List<EmpParam> empParams) {
         return empParams.stream()
                 .mapToDouble(ep -> ep.getParam().getWeight() * ep.getValue())
                 .sum();
     }
 
-    // --- Расчет рейтинга по группе ---
+    /**
+     * Расчёт рейтинга по группе параметров.
+     */
     public Double calculateByGroup(String groupName) {
-        List<EmpParam> params = empParamRepository.findByParam_ParamGroup_Name(groupName);
+        List<EmpParam> params = repo.findByParam_ParamGroup_Name(groupName);
         return calculateRating(params);
     }
 
-    // --- Расчет рейтинга по типу ---
+    /**
+     * Расчёт рейтинга по типу параметра.
+     */
     public Double calculateByType(EParamType type) {
-        List<EmpParam> params = empParamRepository.findByParam_Type(type);
+        List<EmpParam> params = repo.findByParam_Type(type);
         return calculateRating(params);
     }
 
-    // --- Расчет с фильтром: группа или тип ---
+    /**
+     * Расчёт рейтинга с фильтром: группа или тип.
+     */
     public Double calculateWithFilter(String groupName, EParamType type) {
-        List<EmpParam> params = List.of();
+        List<EmpParam> params;
 
         if (groupName != null && !groupName.isEmpty()) {
-            params = empParamRepository.findByParam_ParamGroup_Name(groupName);
+            params = repo.findByParam_ParamGroup_Name(groupName);
         } else if (type != null) {
-            params = empParamRepository.findByParam_Type(type);
+            params = repo.findByParam_Type(type);
         } else {
-            params = getAllEmpParams();
+            params = repo.findAll();
         }
 
         return calculateRating(params);

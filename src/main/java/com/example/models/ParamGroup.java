@@ -1,39 +1,53 @@
 package com.example.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import by.vstu.dean.core.models.DBBaseModel;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import lombok.*;
+import org.hibernate.proxy.HibernateProxy;
 
+import java.util.Objects;
+
+/**
+ * Модель группы критериев.
+ */
 @Entity
-public class ParamGroup {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+@Table(name = "param_groups")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Schema(title = "Модель группы критериев")
+public class ParamGroup extends DBBaseModel {
 
-    private String name; // Название группы критериев
+    /**
+     * Название группы критериев.
+     */
+    @NotNull
+    @Column(name = "name", nullable = false)
+    private String name;
 
-    public ParamGroup() {
-        // Default constructor for JPA
+    @Override
+    public final boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null) return false;
+        Class<?> oEffectiveClass = o instanceof HibernateProxy ?
+                ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() :
+                o.getClass();
+        Class<?> thisEffectiveClass = this instanceof HibernateProxy ?
+                ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() :
+                getClass();
+
+        if (!oEffectiveClass.equals(thisEffectiveClass)) return false;
+        ParamGroup that = (ParamGroup) o;
+        return getId() != null && Objects.equals(that.getId(), getId());
     }
 
-    public ParamGroup(String name) {
-        this.name = name;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    @Override
+    public final int hashCode() {
+        return this instanceof HibernateProxy ?
+                ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass().hashCode() :
+                getClass().hashCode();
     }
 }

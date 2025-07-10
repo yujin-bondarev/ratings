@@ -1,8 +1,12 @@
 package com.example.repositories;
 
 import com.example.models.Param;
-import org.springframework.data.jpa.repository.JpaRepository;
+import by.vstu.dean.core.repo.DBBaseModelRepository;
 
-// Примерная заглушка — будет заменена при подключении к внешней БД
-public interface TeacherRepository extends JpaRepository<Param, Long> {
+/**
+ * Репозиторий для работы с преподавателями (заглушка до подключения к внешней БД).
+ */
+//@Deprecated   Нужна ли?
+// Заменить при подключении к реальному API или БД преподавателей
+public interface TeacherRepository extends DBBaseModelRepository<Param> {
 }

@@ -4,11 +4,13 @@ import com.example.models.EmpParam;
 import com.example.models.enums.EParamType;
 import com.example.services.EmpParamService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@PreAuthorize("hasRole('ADMIN')") // Только администратор может использовать этот контроллер
 @RequestMapping("/api/params")
 public class EmpParamController {
 

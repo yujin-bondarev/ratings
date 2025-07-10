@@ -1,10 +1,31 @@
 package com.example.repositories;
 
 import com.example.models.EmpParam;
-import org.springframework.data.jpa.repository.JpaRepository;
+import by.vstu.dean.core.repo.DBBaseModelRepository;
+import com.example.models.enums.EParamType;
+import org.springframework.stereotype.Repository;
+
 import java.util.List;
 
-public interface EmpParamRepository extends JpaRepository<EmpParam, Long> {
+/**
+ * Интерфейс репозитория параметров оценки преподавателей.
+ */
+@Repository
+public interface EmpParamRepository extends DBBaseModelRepository<EmpParam> {
+
+    /**
+     * Найти все параметры по имени группы.
+     *
+     * @param groupName Имя группы параметров
+     * @return Список объектов {@link EmpParam}
+     */
     List<EmpParam> findByParam_ParamGroup_Name(String groupName);
+
+    /**
+     * Найти все параметры по типу.
+     *
+     * @param type Тип параметра
+     * @return Список объектов {@link EmpParam}
+     */
     List<EmpParam> findByParam_Type(EParamType type);
 }
