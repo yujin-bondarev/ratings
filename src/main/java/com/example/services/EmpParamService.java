@@ -36,31 +36,31 @@ public class EmpParamService extends BaseService<EmpParam, EmpParamRepository> {
     /**
      * Расчёт рейтинга по группе параметров.
      */
-    public Double calculateByGroup(String groupName) {
-        List<EmpParam> params = repo.findByParam_ParamGroup_Name(groupName);
+    public Double calculateByGroup(Long teacherId, String groupName) {
+        List<EmpParam> params = repo.findByTeacherIdAndParam_ParamGroup_Name(teacherId, groupName);
         return calculateRating(params);
     }
 
     /**
      * Расчёт рейтинга по типу параметра.
      */
-    public Double calculateByType(EParamType type) {
-        List<EmpParam> params = repo.findByParam_Type(type);
+    public Double calculateByType(Long teacherId, EParamType type) {
+        List<EmpParam> params = repo.findByTeacherIdAndParam_Type(teacherId, type);
         return calculateRating(params);
     }
 
     /**
      * Расчёт рейтинга с фильтром: группа или тип.
      */
-    public Double calculateWithFilter(String groupName, EParamType type) {
+    public Double calculateWithFilter(Long teacherId, String groupName, EParamType type) {
         List<EmpParam> params;
 
         if (groupName != null && !groupName.isEmpty()) {
-            params = repo.findByParam_ParamGroup_Name(groupName);
+            params = repo.findByTeacherIdAndParam_ParamGroup_Name(teacherId, groupName);
         } else if (type != null) {
-            params = repo.findByParam_Type(type);
+            params = repo.findByTeacherIdAndParam_Type(teacherId, type);
         } else {
-            params = repo.findAll();
+            params = repo.findByTeacherId(teacherId);
         }
 
         return calculateRating(params);

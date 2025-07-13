@@ -1,6 +1,6 @@
 package com.example.models.enums;
 
-import com.example.models.BaseEnum;
+import by.vstu.dean.core.enums.BaseEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.util.Arrays;

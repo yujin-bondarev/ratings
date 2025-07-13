@@ -28,4 +28,8 @@ public interface EmpParamRepository extends DBBaseModelRepository<EmpParam> {
      * @return Список объектов {@link EmpParam}
      */
     List<EmpParam> findByParam_Type(EParamType type);
+
+    List<EmpParam> findByTeacherId(Long teacherId);
+    List<EmpParam> findByTeacherIdAndParam_ParamGroup_Name(Long teacherId, String groupName);
+    List<EmpParam> findByTeacherIdAndParam_Type(Long teacherId, EParamType type);
 }

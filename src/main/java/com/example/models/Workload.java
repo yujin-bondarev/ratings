@@ -1,7 +1,7 @@
 package com.example.models;
 
 import by.vstu.dean.core.models.DBBaseModel;
-import com.example.models.enums.ESemester;
+import by.vstu.dean.enums.ESemester;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;

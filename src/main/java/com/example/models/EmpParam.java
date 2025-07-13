@@ -33,6 +33,9 @@ public class EmpParam extends DBBaseModel {
      */
     private Double value;
 
+    @NotNull
+    private Long teacherId;  // ID преподавателя
+
     @Override
     public final boolean equals(Object o) {
         if (this == o) return true;

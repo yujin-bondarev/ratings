@@ -1,12 +1,24 @@
+
 package com.example.repositories;
 
-import com.example.models.Param;
-import by.vstu.dean.core.repo.DBBaseModelRepository;
+import com.example.models.Teacher;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
 
 /**
- * Репозиторий для работы с преподавателями (заглушка до подключения к внешней БД).
+ * Мок-репозиторий для Teacher (вместо настоящего доступа к БД)
  */
-//@Deprecated   Нужна ли?
-// Заменить при подключении к реальному API или БД преподавателей
-public interface TeacherRepository extends DBBaseModelRepository<Param> {
+@Repository
+@Primary
+public class TeacherRepository {
+
+    public Optional<Teacher> findById(Long id) {
+        Teacher teacher = new Teacher();
+        teacher.setId(id);
+        teacher.setFullName("Мок Преподаватель #" + id);
+        teacher.setEmail("mock" + id + "@example.com");
+        return Optional.of(teacher);
+    }
 }
