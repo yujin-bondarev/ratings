@@ -15,7 +15,7 @@ public class LoggerStubConfig {
     @Bean
     public LoggerService loggerService() {
         return new LoggerService(null) {
-//            @Override
+            //            @Override
             public void log(HttpServletRequest request, HttpServletResponse response, Exception ex) {
                 // ничего не делаем
             }

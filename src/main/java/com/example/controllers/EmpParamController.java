@@ -12,7 +12,7 @@ import by.vstu.dean.core.auth.dto.UserDTO;
 import java.util.List;
 
 @RestController
-@PreAuthorize("hasRole('ADMIN')")
+//@PreAuthorize("hasRole('ADMIN')")
 @RequestMapping("/api/params")
 public class EmpParamController {
 
