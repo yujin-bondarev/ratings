@@ -40,7 +40,6 @@ CREATE TABLE param
     type           VARCHAR(255)                            NOT NULL,
     weight         DOUBLE PRECISION                        NOT NULL,
     comment        VARCHAR(255),
-    description    VARCHAR(255),
     CONSTRAINT pk_param PRIMARY KEY (id)
 );
 

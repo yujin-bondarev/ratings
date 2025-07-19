@@ -50,11 +50,7 @@ public class Param extends DBBaseModel {
      */
     private String comment;
 
-    /**
-     * Описание/подсказка, которая отображается пользователю в интерфейсе.
-     * Например: "Укажите количество часов" или "Максимум 5 публикаций"
-     */
-    private String description;
+
 
     @Override
     public final boolean equals(Object o) {
