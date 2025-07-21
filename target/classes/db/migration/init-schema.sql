@@ -35,12 +35,11 @@ CREATE TABLE param
     status         SMALLINT DEFAULT 0,
     created        TIMESTAMP WITHOUT TIME ZONE,
     updated        TIMESTAMP WITHOUT TIME ZONE,
-    name           VARCHAR(255)                            NOT NULL,
+    name           TEXT                           NOT NULL,
     param_group_id BIGINT,
     type           VARCHAR(255)                            NOT NULL,
     weight         DOUBLE PRECISION                        NOT NULL,
     comment        VARCHAR(255),
-    description    VARCHAR(255),
     CONSTRAINT pk_param PRIMARY KEY (id)
 );
 
