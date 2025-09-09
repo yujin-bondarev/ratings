@@ -10,6 +10,8 @@ import by.vstu.dean.core.configs.security.TokenStore;
 import by.vstu.dean.core.auth.dto.UserDTO;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 //@PreAuthorize("hasRole('ADMIN')")
@@ -26,6 +28,16 @@ public class EmpParamController {
     @GetMapping("/")
     public List<EmpParam> getAllEmpParams() {
         return empParamService.getAll();
+    }
+
+    @GetMapping("/types")
+    public List<Map<String, String>> getAllEParamType() {
+        return EParamType.OTHER.getValues().stream()
+                .map(type -> Map.of(
+                        "value", type.name(),
+                        "description", type.getDescription()
+                ))
+                .collect(Collectors.toList());
     }
 
     @PostMapping
